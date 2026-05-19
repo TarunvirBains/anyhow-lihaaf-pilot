@@ -8,3 +8,5 @@ help: split the comparison into two
   |
 6 |     ensure!(false == false && false == true);
   |                            ++++++++
+
+error: aborting due to 1 previous error

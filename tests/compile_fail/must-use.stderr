@@ -13,3 +13,5 @@ help: use `let _ = ...` to ignore the resulting value
   |
 8 |         let _ = anyhow!("it failed");
   |         +++++++
+
+error: aborting due to 1 previous error
