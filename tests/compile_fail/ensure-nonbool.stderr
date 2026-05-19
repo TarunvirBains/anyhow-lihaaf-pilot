@@ -1,5 +1,5 @@
 error[E0277]: the trait bound `&str: anyhow::__private::not::Bool` is not satisfied
-  --> tests/ui/ensure-nonbool.rs:25:13
+  --> $DIR/ensure-nonbool.rs:25:13
    |
 25 |     ensure!("...");
    |     --------^^^^^-
@@ -22,7 +22,7 @@ note: required by a bound in `anyhow::__private::not`
    |                           ^^^^ required by this bound in `not`
 
 error[E0277]: the trait bound `&mut bool: anyhow::__private::not::Bool` is not satisfied
-  --> tests/ui/ensure-nonbool.rs:29:31
+  --> $DIR/ensure-nonbool.rs:29:31
    |
 29 |         Bool(cond) => ensure!(cond),
    |                       --------^^^^-
@@ -42,7 +42,7 @@ help: consider dereferencing here
    |                               +
 
 error[E0277]: the trait bound `DerefBool: anyhow::__private::not::Bool` is not satisfied
-  --> tests/ui/ensure-nonbool.rs:33:13
+  --> $DIR/ensure-nonbool.rs:33:13
    |
 33 |     ensure!(db);
    |     --------^^-
@@ -51,7 +51,7 @@ error[E0277]: the trait bound `DerefBool: anyhow::__private::not::Bool` is not s
    |     required by a bound introduced by this call
    |
 help: the trait `anyhow::__private::not::Bool` is not implemented for `DerefBool`
-  --> tests/ui/ensure-nonbool.rs:6:1
+  --> $DIR/ensure-nonbool.rs:6:1
    |
  6 | struct DerefBool(bool);
    | ^^^^^^^^^^^^^^^^
@@ -66,7 +66,7 @@ help: consider dereferencing here
    |             +
 
 error[E0277]: the trait bound `&DerefBool: anyhow::__private::not::Bool` is not satisfied
-  --> tests/ui/ensure-nonbool.rs:34:13
+  --> $DIR/ensure-nonbool.rs:34:13
    |
 34 |     ensure!(&db);
    |     --------^^^-
@@ -85,7 +85,7 @@ help: consider dereferencing here
    |              +
 
 error[E0277]: the trait bound `NotBool: anyhow::__private::not::Bool` is not satisfied
-  --> tests/ui/ensure-nonbool.rs:37:13
+  --> $DIR/ensure-nonbool.rs:37:13
    |
 37 |     ensure!(nb);
    |     --------^^-
@@ -94,7 +94,7 @@ error[E0277]: the trait bound `NotBool: anyhow::__private::not::Bool` is not sat
    |     required by a bound introduced by this call
    |
 help: the trait `anyhow::__private::not::Bool` is not implemented for `NotBool`
-  --> tests/ui/ensure-nonbool.rs:8:1
+  --> $DIR/ensure-nonbool.rs:8:1
    |
  8 | struct NotBool(bool);
    | ^^^^^^^^^^^^^^

@@ -23,7 +23,6 @@ futures = { version = "0.3", default-features = false }
 rustversion = "1.0.6"
 syn = { version = "2.0", features = ["full"] }
 thiserror = "2"
-trybuild = { version = "1.0.108", features = ["diff"] }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
@@ -34,3 +33,23 @@ rustdoc-args = [
     "--extern-html-root-url=alloc=https://doc.rust-lang.org",
     "--extern-html-root-url=std=https://doc.rust-lang.org",
 ]
+
+# Lihaaf is the sole compile-fixture gate for this crate.
+#
+# CI installs lihaaf via `cargo install lihaaf --version 0.1.0-beta.9 --locked`
+# and runs `cargo lihaaf`. The 7 compile_fail `.stderr` snapshots under
+# `tests/compile_fail/` ARE committed so CI succeeds without `--bless`.
+# Re-bless locally whenever diagnostic output changes:
+#   cargo lihaaf --filter compile_fail --bless
+# then commit the updated `.stderr` files alongside the diagnostic change.
+#
+# `dylib_crate = "anyhow"` because fixtures `use anyhow::...`.
+# `extern_crates[0]` MUST equal `dylib_crate` per spec §3.2.
+# No `dev_deps` entry needed — fixtures only import from `anyhow` itself.
+# No `compile_pass` dir — all 7 fixtures are compile_fail.
+[package.metadata.lihaaf]
+dylib_crate   = "anyhow"
+extern_crates = ["anyhow"]
+features      = []
+edition       = "2021"
+fixture_dirs  = ["tests/compile_fail"]

@@ -1,5 +1,5 @@
 error: unexpected end of macro invocation
- --> tests/ui/empty-ensure.rs:4:5
+ --> $DIR/empty-ensure.rs:4:5
   |
 4 |     ensure!();
   |     ^^^^^^^^^ missing tokens in macro arguments
