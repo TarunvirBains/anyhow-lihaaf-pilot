@@ -36,7 +36,7 @@ jobs:
             CMD="cargo lihaaf"
           fi
           START=$(date +%s%N)
-          /usr/bin/time -v $CMD 2> time.txt
+          /usr/bin/time -o time.txt -v $CMD
           END=$(date +%s%N)
           WALL_MS=$(( (END - START) / 1000000 ))
           PEAK_KB=$(awk '/Maximum resident set size/ {print $NF}' time.txt)
@@ -44,6 +44,14 @@ jobs:
           echo "peak_kb=$PEAK_KB" >> "$GITHUB_OUTPUT"
           printf '{"branch":"%s","wall_ms":%d,"peak_kb":%d}\n' \
             "${{ matrix.branch }}" "$WALL_MS" "$PEAK_KB" > timing.json
+
+      - name: upload /usr/bin/time output (debug)
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: time-debug-${{ matrix.branch }}
+          path: time.txt
+          if-no-files-found: ignore
 
       - name: upload timing JSON
         uses: actions/upload-artifact@v6
